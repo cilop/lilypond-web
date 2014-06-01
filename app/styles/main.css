@@ -39,3 +39,7 @@ body, h1, h2, h3, h4, h5, h6 {
 .intro-message > h3 {
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
+
+.section-heading {
+  margin-bottom: 30px;
+}
