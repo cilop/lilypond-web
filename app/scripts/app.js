@@ -13,6 +13,10 @@ angular.module('lilypondWebApp', [
         templateUrl: 'partials/about',
         controller: 'AboutCtrl'
       })
+      .when('/demo', {
+        templateUrl: 'partials/demo',
+        controller: 'DemoCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
