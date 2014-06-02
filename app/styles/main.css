@@ -15,7 +15,7 @@ body, h1, h2, h3, h4, h5, h6 {
   padding-top: 50px; 
   padding-bottom: 50px;
   color: #f8f8f8;
-  background: url(http://upload.wikimedia.org/wikipedia/commons/0/0c/Thornden_Park_Lily_Pond-1.jpg) no-repeat center center;
+  background: url(../images/back.png) no-repeat center center;
   background-size: cover;
   text-align: center;
 }
