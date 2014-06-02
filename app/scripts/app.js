@@ -21,6 +21,10 @@ angular.module('lilypondWebApp', [
       templateUrl: 'partials/demo',
       controller: 'DemoCtrl'
     })
+    .when('/download', {
+      templateUrl: 'partials/download',
+      controller: 'DownloadCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
