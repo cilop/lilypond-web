@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="../styles/main.css">
     
   </head>
-  <body ng-app="lilypondWebApp">
+  <body ng-app="lilypondWebApp" ng-controller='MainCtrl'>
+
+    <!-- <div document-view score="score" cursor="cursor" class="documentView" tabindex='0'></div> -->
+
 
     <div class="container" ng-view=""></div>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,14 +42,17 @@
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
 
-    <script src="../scripts/app.js"></script>
-    <script src="../scripts/controllers/main.js"></script>
+    <script src="../scripts/helper.js"></script>
     <script src="../scripts/svg/musicSVG.js"></script>
     <script src="../scripts/svg/paths.js"></script>
     <script src="../scripts/leftBar.js"></script>
     <script src="../scripts/documentView.js"></script>
+    <script src="../scripts/app.js"></script>
+    
     <script src="../scripts/data.js"></script>
     <script src="../scripts/actions.js"></script>
+    
+    <script src="../scripts/controllers/main.js"></script>
 
     <!-- <script src="../scripts/demo.js"></script> -->
     <!-- <script src="scripts/controllers/navbar.js"></script> -->

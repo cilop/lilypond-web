@@ -11,7 +11,8 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
 .intro-header {
-  padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+  
+  padding-top: 50px; 
   padding-bottom: 50px;
   color: #f8f8f8;
   background: url(http://upload.wikimedia.org/wikipedia/commons/0/0c/Thornden_Park_Lily_Pond-1.jpg) no-repeat center center;
@@ -48,3 +49,98 @@ body, h1, h2, h3, h4, h5, h6 {
 .social {
   float: right;
 }
+
+
+/*ajsdas*/
+
+.document {
+  overflow: scroll;
+}
+
+.staffInput {
+  position: absolute;
+  left: 0%;
+  top: 62%;
+}
+
+.displayContainer {
+  top: 62%;
+  float: left;
+}
+
+.staffInput, .inputDisplay {
+  position: relative;
+  float: left;
+}
+
+.inputDisplay {
+  left: 10%;
+}
+
+#fileUpload, #fileSave {
+  visibility: hidden;
+}
+
+.panel-body {
+  padding: 10px;
+}
+
+.panel.panel-default {
+  float: left;
+  width: 80%;
+  height: 198px;
+}
+
+.btn-group-vertical {
+  float:left;
+  border: 1px solid;
+}
+
+svg {
+  top: 0;
+  height: 50%;
+  width: 31;
+}
+
+.cursor {
+    background-color: lightblue;
+}
+
+svg.document.staff {
+    float: left;
+    display: block;
+}
+
+svg.left-bar.staff {
+    display: block;
+    float: left;
+}
+
+div.left-bar {
+    float: left;
+  background-color: #E5E5E5;
+}
+
+div.measure {
+    float: left;
+}
+
+div.staff {
+    float: left;
+    clear: both;
+}
+
+.panel.panel-default.shortcuts {
+ width: 100%; 
+}
+
+.label-shortcuts {
+  text-align: center;
+}
+
+#shortcut-row {
+  text-align: center;
+}
+
+
+

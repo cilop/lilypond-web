@@ -93,6 +93,8 @@
               }
             ]
           };
+          window.data = $scope.model
+          window.scope = $scope
           $scope.model.typing = 'rendering note ..';
           return $element.keydown(function(event) {
             var action, key, metaEl, notes, staffEl;
