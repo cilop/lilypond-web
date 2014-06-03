@@ -28,7 +28,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
 .controller('MainCtrl', function($scope, data, Actions, generateLy){
 
-  $scope.lycode = '';
+  $scope.lycode = '\include "english.ly" music = { \clef treble \key c \major \\time 4/4 } \score { \\new Staff = "music" \music }';
   $scope.score = new data.Score;
   $scope.cursor = new data.Cursor($scope.score);
   $scope.actions = new Actions($scope.score, $scope.cursor, $scope);
