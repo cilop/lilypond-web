@@ -14,7 +14,7 @@ angular.module('lilypondWebApp')
 })
 
 .controller('DemoCtrl', function(){
-
+  // $scope.code = 'Hello World Demo';
 })
 
 .controller('DownloadCtrl', function($scope){
@@ -34,4 +34,8 @@ angular.module('lilypondWebApp')
 
   $scope.os = os;
   
-});
+})
+
+// .controller('RenderCtrl', function($scope){
+//   $scope.model.code = 'Hello World';
+// });

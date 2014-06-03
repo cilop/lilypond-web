@@ -1,12 +1,14 @@
 'use strict';
 
-angular.module('lilypondWebApp', [
-  'ngRoute',
-  'documentView',
-  'data',
-  'actions',
-  'leftBar'
-])
+// angular.module('lilypondWebApp', [
+//   'ngRoute',
+//   'documentView',
+//   'data',
+//   'actions',
+//   'lyGenerator'
+//   'leftBar',
+// ])
+angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', 'actions', 'lyGenerator'])
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
@@ -32,13 +34,9 @@ angular.module('lilypondWebApp', [
   $locationProvider.html5Mode(true);
 })
 
-.controller('MainCtrl', function($scope, data, dataFactory, Actions){
+.controller('MainCtrl', function($scope, data, dataFactory, Actions, generateLy){
 
- $('.menu a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-  }) 
-
+  $scope.code = 'Hello World';
   $scope.score = new data.Score;
   $scope.cursor = new data.Cursor($scope.score);
   $scope.actions = new Actions($scope.score, $scope.cursor);

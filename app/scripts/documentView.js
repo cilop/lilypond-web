@@ -93,9 +93,11 @@
               }
             ]
           };
-          window.data = $scope.model
-          window.scope = $scope
+          
           $scope.model.typing = 'rendering note ..';
+
+          $scope.model.code = 'Hello world';
+
           return $element.keydown(function(event) {
             var action, key, metaEl, notes, staffEl;
             key = helper.animateKey(event.which);
