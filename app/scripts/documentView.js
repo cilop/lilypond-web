@@ -102,44 +102,46 @@
             var action, key, metaEl, notes, staffEl;
             key = helper.animateKey(event.which);
             console.log(event.which);
+
+            $scope.$emit('dataChanged');
+
             $scope.model.typing = helper.parseIncomplete($scope.model.input);
-            console.log($scope.model.currentDuration);
             if ((action = $scope.actions.keybindings[event.which]) != null) {
               action();
               $scope.$digest();
             }
-            if (key === 'enter') {
-              $scope.model.currentDuration = helper.getDuration($scope.model.input);
-              if ($scope.model.currentDuration <= 1) {
-                console.log('parsing notes');
-                notes = helper.parseNotes($scope.model.input);
-                $scope.model.meta.measures.push({
-                  events: {}
-                });
-                $scope.model.staves[0].measures.push({
-                  events: {},
-                  notes: notes
-                });
-                staffEl = $compile('<svg ng-measure ng-model="measure"  class="document staff"/>')($scope);
-                metaEl = $compile('<svg ng-meta-measure ng-model="measure"  class="document staff"/>')($scope);
-                $('.staff.top').append(metaEl);
-                $('.staff.bottom').append(staffEl);
-                $scope.model.input = '';
-                return $scope.model.typing = 'rendering note ..';
-              } else {
-                return alert('Combination of notes exceeds allowed duration');
-              }
-            }
+            // if (key === 'enter') {
+            //   $scope.model.currentDuration = helper.getDuration($scope.model.input);
+            //   if ($scope.model.currentDuration <= 1) {
+            //     console.log('parsing notes');
+            //     notes = helper.parseNotes($scope.model.input);
+            //     $scope.model.meta.measures.push({
+            //       events: {}
+            //     });
+            //     $scope.model.staves[0].measures.push({
+            //       events: {},
+            //       notes: notes
+            //     });
+            //     staffEl = $compile('<svg ng-measure ng-model="measure"  class="document staff"/>')($scope);
+            //     metaEl = $compile('<svg ng-meta-measure ng-model="measure"  class="document staff"/>')($scope);
+            //     $('.staff.top').append(metaEl);
+            //     $('.staff.bottom').append(staffEl);
+            //     $scope.model.input = '';
+            //     return $scope.model.typing = 'rendering note ..';
+            //   } else {
+            //     return alert('Combination of notes exceeds allowed duration');
+            //   }
+            // }
           });
         }
       ],
       template: '<div class="document"> <div class="staff"> <div ng-measure ng-repeat="measure in score.meta.measures" model="score" measure-num="$index" type="meta" measure="measure" class="measure" cursor="cursor" staff="-1"/> </div> <br> <div class="staff"> <div ng-measure ng-repeat="measure in score.staves[0].measures" model="score" measure-num="$index" type="staff" measure="measure" class="measure" cursor="cursor" staff="0"/> </div> </div>',
-      link: function($scope) {
-        return $scope.$watch('model', function() {
-          console.log('model changed');
-          return $scope.$emit('dataChanged', $scope.model);
-        }, true);
-      }
+      // link: function($scope) {
+      //   return $scope.$watch('model', function() {
+      //     console.log('changed');
+      //     return $scope.$emit('dataChanged', $scope.model);
+      //   }, true);
+      // }
     };
   });
 

@@ -36,10 +36,11 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
 .controller('MainCtrl', function($scope, data, dataFactory, Actions, generateLy){
 
-  $scope.code = 'Hello World';
+
+  $scope.lycode = '';
   $scope.score = new data.Score;
   $scope.cursor = new data.Cursor($scope.score);
-  $scope.actions = new Actions($scope.score, $scope.cursor);
+  $scope.actions = new Actions($scope.score, $scope.cursor, $scope);
   $scope.keyboardLayout = [";,.pyfgcrl".split(''), "aoeuidhtns".split(''), "'qjkxbmwvz".split('')];
 
   $scope.buttonDisplay = function(key) {
@@ -56,18 +57,19 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
       key: key
     };
   });
-  $scope.$on('dataChanged', function(value) {
-    console.log(value.targetScope.model);
-    console.log(dataFactory);
-    dataFactory = value.targetScope.model;
-    console.log(dataFactory);
-    return console.log('Updated store');
+
+  $scope.$on('dataChanged', function() {
+    console.log(generateLy($scope.score));
+    $scope.$digest();
+    $scope.lycode = generateLy($scope.score);
   });
+
   $scope.click = function(event) {
     var key;
     key = event.target.className;
     return helper.animateKey(key);
   };
+
   return $scope.leftBarModel = {
     key: 0,
     time: {
