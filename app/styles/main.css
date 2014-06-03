@@ -1,3 +1,13 @@
+div.navbar.menu {
+  position: absolute;
+}
+
+.nav.nav-tabs.nav-justified.menu {
+  position: relative;
+  width: 80%;
+  left: 9%;
+}
+
 body, html {
   height: 100%;
   width: 100%;
@@ -9,6 +19,9 @@ body, h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+#troll {
+  position: absolute;
+}
 
 .intro-header {
   
@@ -141,6 +154,7 @@ div.staff {
 #shortcut-row {
   text-align: center;
 }
+
 
 
 
