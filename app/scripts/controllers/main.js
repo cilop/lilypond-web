@@ -2,19 +2,13 @@
 
 angular.module('lilypondWebApp')
 
-// .controller('MainCtrl', function ($scope, $http) {
-//   // $http.get('/api/awesomeThings').success(function(awesomeThings) {
-//   //   $scope.awesomeThings = awesomeThings;
-//   // });
-// })
-
 .controller('AboutCtrl', function(){
 
 
 })
 
 .controller('DemoCtrl', function(){
-  // $scope.code = 'Hello World Demo';
+  
 })
 
 .controller('DownloadCtrl', function($scope){
@@ -34,8 +28,4 @@ angular.module('lilypondWebApp')
 
   $scope.os = os;
   
-})
-
-// .controller('RenderCtrl', function($scope){
-//   $scope.model.code = 'Hello World';
-// });
+});
