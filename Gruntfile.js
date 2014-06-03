@@ -486,19 +486,19 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'clean:dist',
-    'bower-install',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
+    // 'clean:dist',
+    // 'bower-install',
+    // 'useminPrepare',
+    // 'concurrent:dist',
+    // 'autoprefixer',
     // 'concat',
-    'ngmin',
-    'copy:dist',
-    'cdnify',
+    // 'ngmin',
+    // 'copy:dist',
+    // 'cdnify',
     // 'cssmin',
     // 'uglify',
     // 'rev',
-    'usemin'
+    // 'usemin'
   ]);
 
   grunt.registerTask('heroku', function () {

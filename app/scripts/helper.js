@@ -1,5 +1,14 @@
+
+
+
+
 (function() {
+
   window.helper = {};
+
+  helper.toggleActive = function(element){
+    element.toggleClass('active');
+  };
 
   helper.getDuration = function(str) {
     var check, duration, e, note, notes, _i, _len;
@@ -149,5 +158,23 @@
     }
     return char;
   };
+
+
+  // $(function(){
+
+  //   $('#home').on('click', function(){
+  //     $(this).toggleClass('active');
+  //   });
+  //   $('#demo').on('click', function(){
+  //     $(this).toggleClass('active');
+  //   });
+  //   $('#about').on('click', function(){
+  //     $(this).toggleClass('active');
+  //   });
+  //   $('#download').on('click', function(){
+  //     $(this).toggleClass('active');
+  //   });
+
+  // });
 
 }).call(this);

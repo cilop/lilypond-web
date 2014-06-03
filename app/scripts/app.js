@@ -34,6 +34,11 @@ angular.module('lilypondWebApp', [
 
 .controller('MainCtrl', function($scope, data, dataFactory, Actions){
 
+ $('.menu a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  }) 
+
   $scope.score = new data.Score;
   $scope.cursor = new data.Cursor($scope.score);
   $scope.actions = new Actions($scope.score, $scope.cursor);

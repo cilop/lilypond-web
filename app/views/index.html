@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
 
     
   </head>
@@ -28,19 +29,21 @@
           <p class="navbar-brand"> Org name goes here </p>
         </div> -->
         <div class ="menu navbar">
-          <ul class="nav nav-tabs nav-justified menu">
-            <li class="active"><a href="/"> Home </a></li>
-            <li><a href="/about"> About </a></li>
-            <li><a href="/demo"> Demo </a></li>
-            <li><a href="/download"> Downloads </a></li>
+          <ul class="nav nav-tabs nav-justified menu" data-tabs="tabs">
+            <!-- <li ng-click="toggleActive()" ng-repeat="link in links"><a href="/{{ link"></a></li> -->
+            <li id="home" class="active"><a href="/home" data-target="#home" data-toggle="tab"> Home </a></li>
+            <li id="about" ><a href="/about" data-target="#about" data-toggle="tab"> About </a></li>
+            <li id="demo"><a data-target="#demo" data-toggle="tab" href="/demo"> Demo </a></li>
+            <li id="downloads"><a data-target="#download" data-toggle="tab" href="/download"> Downloads </a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../scripts/tab.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
 
