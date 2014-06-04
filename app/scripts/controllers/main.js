@@ -2,14 +2,14 @@
 
 angular.module('lilypondWebApp')
 
-.controller('AboutCtrl', function(){
+// .controller('AboutCtrl', function(){
 
 
-})
+// })
 
-.controller('DemoCtrl', function(){
+// .controller('DemoCtrl', function(){
   
-})
+// })
 
 .controller('DownloadCtrl', function($scope){
 

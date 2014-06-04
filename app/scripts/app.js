@@ -8,12 +8,10 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
       controller: 'MainCtrl'
     })
     .when('/about', {
-      templateUrl: 'partials/about',
-      controller: 'AboutCtrl'
+      templateUrl: 'partials/about'
     })
     .when('/demo', {
-      templateUrl: 'partials/demo',
-      controller: 'DemoCtrl'
+      templateUrl: 'partials/demo'
     })
     .when('/download', {
       templateUrl: 'partials/download',
@@ -42,7 +40,6 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
     };
     $scope.keydown = function(event) {
       var _base, _name;
-      console.log(event.which);
       return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
     };
 
