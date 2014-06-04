@@ -1,7 +1,7 @@
 <br>
 <br>
 <br>
-<div>
+
   <div class="container">
     <div class="row">
       <div class="col-lg-5">
@@ -9,26 +9,53 @@
       <p class="lead"> In the demo section, you can click to select the working track, and then use the keyboard shortcuts to write music.
       The Lilypond code is updated live, being translated from the visualization into working Lilypond code. </p>
       </div>
+      <div class="row">
+        <!-- <div class="container"> -->
+          <div class="col-lg-5">
+            <!-- <div class="col-lg-5"> -->
+            <h2 class="section-heading"> Compiled code: </h2>
+            <p class="lead"> {{ lycode }} </p>
+            <!-- </div> -->
+          </div>
+        <!-- </div> -->
+      </div>
+      </div>
     </div>
   </div>
-</div>
-<div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5">
-      <h2 class="section-heading"> Compiled code: </h2>
-      <p class="lead"> {{ lycode }} </p>
+
+<div class="container">
+<div class="row">
+  <div class="col-lg-5">
+    <h2 class="section-heading"> Keyboard </h2>
+    <div class="container">
+      <div class="shortcut-row" ng-repeat="row in actions.keyboardLayouts[selectedKeyboard]">
+        <div class="btn-group key-container" ng-repeat="key in row">
+          <button class="btn btn-default btn-group-horizontal key letter">
+            <b>{{key}}</b>
+          </button>
+          <button class="btn btn-default btn-group-horizontal key action">
+            {{buttonDisplay(key)}}
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<p class="lead"> Click below to edit the track: </p>
+</div>
+
+<br>
+
+<div class="container">
+<div class="row">
+<div class="col-lg-5">
+<h2 class="section-heading"> Click below to edit the track: </h2>
 <div document-view score="score" cursor="cursor" class="documentView" tabindex='0'></div>
+</div>
+</div>
+</div>
 
 <br>
 <br>
 <br>
-<br>
-
 
 
