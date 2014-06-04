@@ -123,13 +123,17 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*',
-            '!<%= yeoman.dist %>/Procfile'
+          'app/scripts/concat.js'
           ]
+          // src: [
+          //   '.tmp',
+          //   '<%= yeoman.dist %>/*',
+          //   '!<%= yeoman.dist %>/.git*',
+          //   '!<%= yeoman.dist %>/Procfile'
+          // ]
         }]
       },
+
       heroku: {
         files: [{
           dot: true,
@@ -392,22 +396,6 @@ module.exports = function (grunt) {
       }
     },
 
-
-    // <script src="../scripts/helper.js"></script>
-    // <script src="../scripts/svg/musicSVG.js"></script>
-    // <script src="../scripts/svg/paths.js"></script>
-    // <script src="../scripts/leftBar.js"></script>
-    // <script src="../scripts/documentView.js"></script>
-    // <script src="../scripts/app.js"></script>
-    
-    // <script src="../scripts/lyGenerator.js"></script>
-    // <script src="../scripts/data.js"></script>
-    // <script src="../scripts/actions.js"></script>
-    
-    // <script src="../scripts/controllers/main.js"></script>
-
-
-
     concat: {
       dist: {
         files: {
@@ -538,8 +526,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'concat',
     'ngmin',
-    'uglify'
-    // 'copy:dist'
+    'uglify',
+    'clean:dist'
     ]);
 
   grunt.registerTask('heroku', function () {
