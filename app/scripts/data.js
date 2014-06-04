@@ -1,8 +1,11 @@
 (function() {
-  var __hasProp = {}.hasOwnProperty,
+  var dataModule,
+    __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('data', []).factory('data', function() {
+  dataModule = angular.module('data', []);
+
+  dataModule.factory('data', function() {
     var data;
     data = {};
     data.Score = (function() {
@@ -81,7 +84,7 @@
           }
           cursor.position = Math.min(cursor.position, Math.max(this.currentMeasure(cursor).notes.length - 1, 0));
           _results = [];
-          while (!((_(this.staves[0].measures).last().notes[0].duration == null) && ((this.staves[0].measures[this.staves[0].measures.length - 2] == null) || (this.staves[0].measures[this.staves[0].measures.length - 2].notes[0].duration != null)))) {
+          while (!((_(_(this.staves[0].measures).last().notes).last().duration == null) && ((this.staves[0].measures[this.staves[0].measures.length - 2] == null) || (this.staves[0].measures[this.staves[0].measures.length - 2].notes[0].duration != null)))) {
             _results.push(this.removeMeasure(cursor));
           }
           return _results;
@@ -243,7 +246,14 @@
       };
 
       Cursor.prototype.setNoteType = function(noteType) {
+        var cursorHeight, _ref, _ref1;
         this.noteType = noteType;
+        if (((_ref = this.score.currentMeasure(this).notes) != null ? (_ref1 = _ref[this.position]) != null ? _ref1.duration : void 0 : void 0) != null) {
+          cursorHeight = this.height;
+          this.height = -(this.score.currentMeasure(this).notes[this.position].pitch - 6);
+          this.score.addNote(this);
+          return this.height = cursorHeight;
+        }
       };
 
       return Cursor;
