@@ -55,7 +55,6 @@
         modified[char] = 'f';
       }
     }
-    console.log(key, keySharps.slice(0, +key + 1 || 9e9), modified);
     names = ['c', 'd', 'e', 'f', 'g', 'a', 'b'];
     result = names[__modulo(noteValue, 7)] + (modified[names[__modulo(noteValue, 7)]] || '');
     octave = (Math.floor(noteValue / 7)) + 1;

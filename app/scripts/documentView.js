@@ -96,7 +96,7 @@
           
           return $element.keydown(function(event) {
             var action, key;
-            key = helper.animateKey(event.which);
+            // key = helper.animateKey(event.which);
             $scope.$emit('dataChanged');
 
             if ((action = $scope.actions.keybindings[event.which]) != null) {
