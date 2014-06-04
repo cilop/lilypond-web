@@ -10,3 +10,4 @@ nodemon.json
 azure.err
 iisnode.yml
 dist.zip
+app/scripts/scripts.js
