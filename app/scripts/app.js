@@ -63,7 +63,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
 })
 
-.controller('DownloadCtrl', function($scope, $http){
+.controller('DownloadCtrl', function($scope){
 
   var mac = (navigator.userAgent.toString().toLowerCase().indexOf('mac') !== -1) ? true: false;
   var win = (navigator.appVersion.indexOf('Win') !== -1) ? true : false;
@@ -82,17 +82,10 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
   $scope.download = function(){
 
-    $http({
-      method: 'GET',
-      url: '/download'
-    })
-    .success(function(data){
-      console.log('Request successful')
-    })
-    .error(function(){
-      console.log('Request errored')
-    })
+    var aTag = angular.element('#download');
+    aTag.append('<form action="/getzip" method="get"></form>').children().submit();
+    aTag.children().remove();
 
-  }
+  };
   
 });
