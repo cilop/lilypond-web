@@ -83,7 +83,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   $scope.download = function(){
 
     var aTag = angular.element('#download');
-    aTag.append('<form action="/getzip" method="get"></form>').children().submit();
+    aTag.append('<form action="/getzip" method="post"><input name="os" value=' + $scope.os +'></form>').children().submit();
     aTag.children().remove();
 
   };
