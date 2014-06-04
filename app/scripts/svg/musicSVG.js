@@ -1,33 +1,35 @@
 (function() {
   var musicSVG, svgNamespace;
 
-  musicSVG = angular.module('musicSVG', []);
+  musicSVG = angular.module('musicSVG', ['paths']);
 
-  musicSVG.directive('ngPath', function() {
-    return {
-      restrict: 'A',
-      scope: {
-        name: '@',
-        x: '@',
-        y: '@'
-      },
-      link: function(scope, $element, $attrs) {
-        var _ref, _ref1, _ref2, _ref3, _ref4;
-        $element.attr({
-          d: ((_ref = paths[scope.name]) != null ? _ref.d : void 0) || 'M 0 0',
-          transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ") scale(" + (((_ref1 = paths[scope.name]) != null ? (_ref2 = _ref1.scale) != null ? _ref2.x : void 0 : void 0) || 0) + ", " + (((_ref3 = paths[scope.name]) != null ? (_ref4 = _ref3.scale) != null ? _ref4.y : void 0 : void 0) || 0) + ")",
-          stroke: 'currentColor'
-        });
-        return scope.$watch('name', function(newName) {
-          var _ref5, _ref6, _ref7, _ref8, _ref9;
-          return $element.attr({
-            d: ((_ref5 = paths[scope.name]) != null ? _ref5.d : void 0) || 'M 0 0',
-            transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ") scale(" + (((_ref6 = paths[scope.name]) != null ? (_ref7 = _ref6.scale) != null ? _ref7.x : void 0 : void 0) || 0) + ", " + (((_ref8 = paths[scope.name]) != null ? (_ref9 = _ref8.scale) != null ? _ref9.y : void 0 : void 0) || 0) + ")"
+  musicSVG.directive('ngPath', [
+    'paths', function(paths) {
+      return {
+        restrict: 'A',
+        scope: {
+          name: '@',
+          x: '@',
+          y: '@'
+        },
+        link: function(scope, $element, $attrs) {
+          var _ref, _ref1, _ref2, _ref3, _ref4;
+          $element.attr({
+            d: ((_ref = paths[scope.name]) != null ? _ref.d : void 0) || 'M 0 0',
+            transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ") scale(" + (((_ref1 = paths[scope.name]) != null ? (_ref2 = _ref1.scale) != null ? _ref2.x : void 0 : void 0) || 0) + ", " + (((_ref3 = paths[scope.name]) != null ? (_ref4 = _ref3.scale) != null ? _ref4.y : void 0 : void 0) || 0) + ")",
+            stroke: 'currentColor'
           });
-        });
-      }
-    };
-  });
+          return scope.$watch('name', function(newName) {
+            var _ref5, _ref6, _ref7, _ref8, _ref9;
+            return $element.attr({
+              d: ((_ref5 = paths[scope.name]) != null ? _ref5.d : void 0) || 'M 0 0',
+              transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ") scale(" + (((_ref6 = paths[scope.name]) != null ? (_ref7 = _ref6.scale) != null ? _ref7.x : void 0 : void 0) || 0) + ", " + (((_ref8 = paths[scope.name]) != null ? (_ref9 = _ref8.scale) != null ? _ref9.y : void 0 : void 0) || 0) + ")"
+            });
+          });
+        }
+      };
+    }
+  ]);
 
   musicSVG.directive('ngStaff', function() {
     return {
