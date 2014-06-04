@@ -2,15 +2,6 @@
 
 angular.module('lilypondWebApp')
 
-// .controller('AboutCtrl', function(){
-
-
-// })
-
-// .controller('DemoCtrl', function(){
-  
-// })
-
 .controller('DownloadCtrl', function($scope){
 
   var mac = (navigator.userAgent.toString().toLowerCase().indexOf('mac') !== -1) ? true: false;
