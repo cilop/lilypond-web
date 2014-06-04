@@ -73,7 +73,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   if (mac) {
     os = 'Mac OS';
   } else if (win) {
-    os = 'Microsoft Windows';
+    os = 'Windows';
   } else if (linux) {
     os = 'Linux';
   }
@@ -84,7 +84,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
     os = os || $scope.os;
     var aTag = angular.element('#download');
-    aTag.append('<form action="/getzip" method="post"><input name="os" value=' + os +'></form>').children().submit();
+    aTag.append('<form action="/getzip" method="post"><input name="os" value="' + os +'""></form>').children().submit();
     aTag.children().remove();
 
   };
