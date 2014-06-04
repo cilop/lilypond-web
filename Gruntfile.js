@@ -284,9 +284,10 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
+          // cwd: '.tmp/concat/scripts',
+          cwd: 'app/scripts',
+          src: 'concat.js',
+          dest: 'app/scripts'
         }]
       }
     },
@@ -370,28 +371,61 @@ module.exports = function (grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%= yeoman.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+
+    cssmin: {
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': [
+            '.tmp/styles/{,*/}*.css',
+            '<%= yeoman.app %>/styles/{,*/}*.css'
+          ]
+        }
+      }
+    },
+    uglify: {
+      dist: {
+        files: {
+          'app/scripts/scripts.js': [
+            'app/scripts/concat.js'
+          ]
+        }
+      }
+    },
+
+
+    // <script src="../scripts/helper.js"></script>
+    // <script src="../scripts/svg/musicSVG.js"></script>
+    // <script src="../scripts/svg/paths.js"></script>
+    // <script src="../scripts/leftBar.js"></script>
+    // <script src="../scripts/documentView.js"></script>
+    // <script src="../scripts/app.js"></script>
+    
+    // <script src="../scripts/lyGenerator.js"></script>
+    // <script src="../scripts/data.js"></script>
+    // <script src="../scripts/actions.js"></script>
+    
+    // <script src="../scripts/controllers/main.js"></script>
+
+
+
+    concat: {
+      dist: {
+        files: {
+          'app/scripts/concat.js' : [
+            'app/scripts/helper.js',
+            'app/scripts/svg/musicSVG.js',
+            'app/scripts/svg/paths.js',
+            'app/scripts/leftBar.js',
+            'app/scripts/documentView.js',
+            'app/scripts/app.js',
+            'app/scripts/lyGenerator.js',
+            'app/scripts/data.js',
+            'app/scripts/actions.js',
+            'app/scripts/main.js'
+          ]
+        }
+      }
+    },
 
     // Test settings
     karma: {
@@ -485,21 +519,28 @@ module.exports = function (grunt) {
     ]);
   });
 
+  // grunt.registerTask('build', [
+  //   'clean:dist',
+  //   'bower-install',
+  //   'useminPrepare',
+  //   'concurrent:dist',
+  //   'autoprefixer',
+  //   'concat',
+  //   'ngmin',
+  //   'copy:dist',
+  //   'cdnify',
+  //   'cssmin',
+  //   'uglify',
+  //   'rev',
+  //   'usemin'
+  // ]);
+
   grunt.registerTask('build', [
-    // 'clean:dist',
-    // 'bower-install',
-    // 'useminPrepare',
-    // 'concurrent:dist',
-    // 'autoprefixer',
-    // 'concat',
-    // 'ngmin',
-    // 'copy:dist',
-    // 'cdnify',
-    // 'cssmin',
-    // 'uglify',
-    // 'rev',
-    // 'usemin'
-  ]);
+    'concat',
+    'ngmin',
+    'uglify'
+    // 'copy:dist'
+    ]);
 
   grunt.registerTask('heroku', function () {
     grunt.log.warn('The `heroku` task has been deprecated. Use `grunt build` to build for deployment.');
