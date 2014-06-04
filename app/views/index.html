@@ -14,7 +14,7 @@
 
     
   </head>
-  <body ng-app="lilypondWebApp" ng-controller='MainCtrl'>
+  <body ng-app="lilypondWebApp" ng-controller='MainCtrl' ng-keydown="keydown($event)">
 
     <div class="container" ng-view=""></div>
     <meta name="viewport" content="width=device-width, initial-scale=1">
