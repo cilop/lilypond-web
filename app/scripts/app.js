@@ -29,26 +29,22 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 .controller('MainCtrl', function($scope, data, Actions, generateLy){
 
   $scope.lycode = '\include "english.ly" music = { \clef treble \key c \major \\time 4/4 } \score { \\new Staff = "music" \music }';
-  $scope.score = new data.Score;
-  $scope.cursor = new data.Cursor($scope.score);
-  $scope.actions = new Actions($scope.score, $scope.cursor);
-  $scope.selectedKeyboard = 'qwerty';
-  $scope.buttonDisplay = function(key) {
-    if ($scope.selectedKeyboard === 'qwerty') {
-      key = $scope.actions.qwertyToDvorak(key);
-    }
-    return $scope.actions.buttonDisplays[$scope.actions.bindings[key]] || '';
-  };
-  $scope.keydown = function(event) {
-    var _base, _name;
-    console.log(event.which);
-    return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
-  };
-  $scope.keyboardLayout = [";,.pyfgcrl".split(''), "aoeuidhtns".split(''), "'qjkxbmwvz".split('')];
 
-  $scope.buttonDisplay = function(key) {
-    return $scope.actions.buttonDisplays[$scope.actions.bindings[key]] || '-';
-  };
+  $scope.score = new data.Score();
+    $scope.cursor = new data.Cursor($scope.score);
+    $scope.actions = new Actions($scope.score, $scope.cursor);
+    $scope.selectedKeyboard = 'qwerty';
+    $scope.buttonDisplay = function(key) {
+      if ($scope.selectedKeyboard === 'qwerty') {
+        key = $scope.actions.qwertyToDvorak(key);
+      }
+      return $scope.actions.buttonDisplays[$scope.actions.bindings[key]] || '';
+    };
+    $scope.keydown = function(event) {
+      var _base, _name;
+      console.log(event.which);
+      return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
+    };
 
   $scope.$on('dataChanged', function() {
     $scope.$digest();
