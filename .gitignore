@@ -9,4 +9,4 @@ dist
 nodemon.json
 azure.err
 iisnode.yml
-app.zip
+dist.zip
