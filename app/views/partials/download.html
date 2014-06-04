@@ -4,9 +4,14 @@
 <div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-5">
-      <h2 class="section-heading"> Get a copy </h2>
-      <p class="lead"> Your operating system appears to be {{ os }}. Grab your copy of the software <a id="download" ng-click="download()"> here </a>.
+      <div class="col-lg-12">
+      <h2 class="section-heading text-center"> Get a copy </h2>
+      <p class="lead text-center"> Your operating system appears to be {{ os }}. Grab your copy of the software <a id="download" ng-click="download()"> here </a>.
       If you are looking for a different version:  </p>
   
+      <p class="lead text-center"> All versions: <a ng-click="download('Mac OS')"> Mac OSX </a>, <a ng-click="download('Linux')"> Linux </a>, <a ng-click="download('Microsoft Windows')"> Microsoft Windows </a>
+      </p>
+      </div>
+      </div>
+      </div>
       <hr class="intro-divider">
