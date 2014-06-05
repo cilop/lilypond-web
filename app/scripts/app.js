@@ -98,17 +98,19 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
     console.log('Should save JSON');
     var data = angular.toJson($scope.score);
+    var ts = new Date().getTime();
 
     $http({
       method: 'POST',
       url: '/savejson',
       data: {
-        data: data
+        data: data,
+        ts: ts
       }
     })
     .success(function(){
       console.log('Post successfull');
-      angular.element('body').append('<form action="/gettrack" method="get"></form>').children().submit();
+      angular.element('body').append('<form action="/gettrack" method="post"><input name="ts" value="' + ts + '"></form>').children().submit();
       angular.element('body').children().find('form').remove();
     })
     .error(function(){
