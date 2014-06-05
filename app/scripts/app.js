@@ -54,8 +54,6 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
   $scope.loadFile = function(){
     
-    console.log('Should load a file');
-
     $('#fileInput').on('change', function(){
 
       var file = $('#fileInput').get(0).files[0];
@@ -63,7 +61,12 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
       reader.onloadend = function() {
         var i, measure, staff, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
-        $scope.score = _(new data.Score()).extend(JSON.parse(reader.result));
+        try {
+          $scope.score = _(new data.Score()).extend(JSON.parse(reader.result));
+        } catch (err) {
+          alert('File input must be valid JSON');
+          return;
+        }
         _ref = $scope.score.meta.measures;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           measure = _ref[i];
