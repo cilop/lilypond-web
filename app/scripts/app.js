@@ -94,10 +94,21 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
   };
 
-  $scope.saveFile = function(){
+  $scope.saveFile = function(format){
+
+    // alert(format);
 
     console.log('Should save JSON');
-    var data = angular.toJson($scope.score);
+    var data;
+
+    if (format === '.json') {
+      data = angular.toJson($scope.score);
+    } else {
+      data = generateLy($scope.score);
+    }
+
+
+
     var ts = new Date().getTime();
 
     $http({
@@ -105,22 +116,20 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
       url: '/savejson',
       data: {
         data: data,
-        ts: ts
+        ts: ts,
+        format: format
       }
     })
     .success(function(){
       console.log('Post successfull');
-      angular.element('body').append('<form action="/gettrack" method="post"><input name="ts" value="' + ts + '"></form>').children().submit();
-      angular.element('body').children().find('form').remove();
+      console.log('Now posting new: ' + format + ts);
+      angular.element('body').append('<form action="/gettrack" method="post"><input name="format" value="' + format + '"><input name="ts" value="' + ts + '"></form>').children().submit();
+      angular.element('body').find('form').remove();
     })
     .error(function(){
       console.log('Post errorfull');
     });
 
-  };
-
-  $scope.saveLilyPond = function(){
-    console.log('Should save LilyPond');
   };
 
   return $scope.leftBarModel = {
