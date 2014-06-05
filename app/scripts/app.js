@@ -24,7 +24,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   $locationProvider.html5Mode(true);
 })
 
-.controller('MainCtrl', function($scope, data, Actions, generateLy){
+.controller('MainCtrl', function($scope, data, Actions, generateLy, $q){
 
   $scope.lycode = '\include "english.ly" music = { \clef treble \key c \major \\time 4/4 } \score { \\new Staff = "music" \music }';
 
@@ -48,6 +48,36 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
     $scope.$digest();
     $scope.lycode = generateLy($scope.score);
   });
+
+
+  $scope.loadFile = function(){
+    
+    console.log('Should load a file');
+    $('#fileInput').on('change', function(){
+
+      console.log('Inside');
+      var file = $('#fileInput').get(0).files[0];
+      var data = new FileReader();
+      data.onloadend = function() {
+        console.log('done loading');
+        console.log(data.result);
+      };
+      var result = data.readAsText(file);
+
+      console.log(result);
+      console.log(file);
+    });
+    $('#fileInput').click();
+
+  };
+
+  $scope.saveFile = function(){
+    console.log('Should save JSON');
+  };
+
+  $scope.saveLilyPond = function(){
+    console.log('Should save LilyPond');
+  };
 
   return $scope.leftBarModel = {
     key: 0,
