@@ -24,7 +24,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   $locationProvider.html5Mode(true);
 })
 
-.controller('MainCtrl', function($scope, data, Actions, generateLy, $q){
+.controller('MainCtrl', function($scope, data, Actions, generateLy, $http){
 
   $scope.lycode = '\include "english.ly" music = { \clef treble \key c \major \\time 4/4 } \score { \\new Staff = "music" \music }';
 
@@ -32,15 +32,16 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   $scope.cursor = new data.Cursor($scope.score);
   $scope.actions = new Actions($scope.score, $scope.cursor);
   $scope.selectedKeyboard = 'dvorak';
+
   $scope.buttonDisplay = function(key) {
     if ($scope.selectedKeyboard === 'qwerty') {
       key = $scope.actions.qwertyToDvorak(key);
     }
     return $scope.actions.buttonDisplays[$scope.actions.bindings[key]] || '';
   };
+
   $scope.keydown = function(event) {
     var _base, _name;
-    console.log(event.which);
     return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
   };
 
@@ -94,7 +95,26 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
   };
 
   $scope.saveFile = function(){
+
     console.log('Should save JSON');
+    var data = angular.toJson($scope.score);
+
+    $http({
+      method: 'POST',
+      url: '/savejson',
+      data: {
+        data: data
+      }
+    })
+    .success(function(){
+      console.log('Post successfull');
+      angular.element('body').append('<form action="/gettrack" method="get"></form>').children().submit();
+      angular.element('body').children().find('form').remove();
+    })
+    .error(function(){
+      console.log('Post errorfull');
+    });
+
   };
 
   $scope.saveLilyPond = function(){
