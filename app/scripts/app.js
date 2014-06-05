@@ -44,29 +44,48 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
     return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
   };
 
-  $scope.$on('dataChanged', function() {
+  var changeHandler = function() {
     $scope.$digest();
     $scope.lycode = generateLy($scope.score);
-  });
+  };
+
+  $scope.$on('dataChanged', changeHandler);
 
 
   $scope.loadFile = function(){
     
     console.log('Should load a file');
+
     $('#fileInput').on('change', function(){
 
-      console.log('Inside');
       var file = $('#fileInput').get(0).files[0];
-      var data = new FileReader();
-      data.onloadend = function() {
-        console.log('done loading');
-        console.log(data.result);
-      };
-      var result = data.readAsText(file);
+      var reader = new FileReader();
 
-      console.log(result);
-      console.log(file);
+      reader.onloadend = function() {
+        var i, measure, staff, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+        $scope.score = _(new data.Score()).extend(JSON.parse(reader.result));
+        _ref = $scope.score.meta.measures;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          measure = _ref[i];
+          $scope.score.meta.measures[i] = _(new data.Measure()).extend(measure);
+        }
+        _ref1 = $scope.score.staves;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          staff = _ref1[_j];
+          _ref2 = staff.measures;
+          for (i = _k = 0, _len2 = _ref2.length; _k < _len2; i = ++_k) {
+            measure = _ref2[i];
+            staff.measures[i] = _(new data.StaffMeasure()).extend(measure);
+          }
+        }
+        $scope.cursor = new data.Cursor($scope.score);
+        $scope.actions = new Actions($scope.score, $scope.cursor);
+        changeHandler();
+        };
+
+      reader.readAsText(file);
     });
+
     $('#fileInput').click();
 
   };
