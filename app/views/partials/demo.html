@@ -19,7 +19,7 @@
 
     <div class="container">
     <div class="row">
-    <div class="col-lg-5" >
+    <div class="col-lg-4">
       <nav class="navbar navbar-default" role="navigation">
         <div class="container">
           <ul class="nav navbar-nav">
@@ -52,7 +52,7 @@
     </div>
 
     <div class="container">
-      <div class="shortcut-row" ng-repeat="row in actions.keyboardLayouts[selectedKeyboard]">
+      <div ng-repeat="row in actions.keyboardLayouts[selectedKeyboard]">
         <div class="btn-group key-container" ng-repeat="key in row">
           <button class="btn btn-default btn-group-horizontal key letter">
             <b>{{key}}</b>
@@ -67,7 +67,7 @@
 <div class="wrapper container">
   <div class="row">
     <div class="col-lg-12">
-      <h2 class="section-heading text-center" > Click below to edit the track: </h2>
+      <h2 class="section-heading" > Click below to edit the track: </h2>
 
         <div left-bar class="left-bar"></div>
         <div ng-keydown="keydown($event)" document-view class="document-view" tabindex="0"></div>
