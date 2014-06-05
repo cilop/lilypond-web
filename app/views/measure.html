@@ -1,24 +1,29 @@
+<!-- Initial space -->
 <svg class="document staff" width="8" height="64" viewBox="0 -4 1 8">
   <g ng-staff single="type === 'meta'" width="1"/>
 </svg>
+<!-- Clef -->
 <svg class="document staff" width="24" height="64" viewBox="0 -4 3 8"
      ng-show="model.staves[0].measures[measureNum].events.clef !== undefined">
   <g ng-staff single="type === 'meta'" width="3"/>
   <g ng-clef name="{{measure.events.clef}}"
      ng-show="measure.events.clef !== undefined"/>
 </svg>
+<!-- Key signature -->
 <svg class="document staff" width="64" height="64" viewBox="0 -4 8 8"
      ng-show="model.meta.measures[measureNum].events.key !== undefined">
   <g ng-staff single="type === 'meta'" width="8"/>
   <g ng-key-signature value="{{model.meta.measures[measureNum].events.key}}"
      y="{{type === 'meta' ? 0 : -0.5}}"/>
 </svg>
+<!-- Time signature -->
 <svg class="document staff" width="24" height="64" viewBox="0 -4 3 8"
      ng-show="model.meta.measures[measureNum].events.time !== undefined">
   <g ng-staff single="type === 'meta'" width="3"/>
   <g ng-time-signature top="{{model.meta.measures[measureNum].events.time.n}}"
      bottom="{{model.meta.measures[measureNum].events.time.d}}"/>
 </svg>
+<!-- Notes -->
 <svg class="document staff" width="24" height="64" viewBox="0 -4 3 8"
      ng-repeat="note in model.staves[0].measures[measureNum].notes">
   <rect ng-cursor position="0" cursor-height="{{cursor.height}}"
@@ -26,17 +31,14 @@
                  cursor.position === $index"/>
   <g ng-staff single="type === 'meta'" width="3"/>
   <g ng-positioned-note position="{{-1/2 * (note.pitch - 6)}}" type="{{note.duration.d}}"
-     x="{{note.duration !== undefined && note.duration.d === 1 ? 0 : 0.5}}"
-     ng-show="type !== 'meta' && note.duration !== undefined"/>
+     x="{{note.duration !== undefined && note.duration.d === 1 ? 0.3 : 0.8}}"
+     ng-show="type !== 'meta' && note.duration !== undefined && note.pitch !== null"/>
+  <g ng-rest type="{{note.duration.d}}" x="0.8"
+     ng-show="type !== 'meta' && note.duration !== undefined && note.pitch === null"/>
 </svg>
-<svg class="document staff" width="16" height="64" viewBox="0 -4 2 8"
-     ng-show="model.staves[0].measures[measureNum].notes.length === 0">
-  <rect ng-cursor position="0" cursor-height="{{cursor.height}}"
-        ng-show="cursor.staff === staff && cursor.measure === measureNum &&
-                 cursor.position === 0"/>
-  <g ng-staff single="type === 'meta'" width="3"/>
-</svg>
-<svg class="document staff" width="8" height="64" viewBox="0 -4 1 8">
-  <g ng-staff single="type === 'meta'" width="3"/>
-  <rect ng-barline type="|" position="1" size="{{type === 'meta' ? 1 : 2}}"/>
+<!-- Final space, with bar line -->
+<svg class="document staff" width="16" height="64" viewBox="0 -4 2 8">
+  <g ng-staff single="type === 'meta'" width="2"/>
+  <g ng-bar-line-group type="{{model.meta.measures[measureNum].events.barLine || '|'}}"
+     x="2" height="type === 'meta' ? 1 : 2"/>
 </svg>

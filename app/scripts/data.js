@@ -11,23 +11,17 @@
     data.Score = (function() {
       function Score() {
         this.meta = {
-          measures: [
-            new data.Measure({
-              key: 0,
-              time: {
-                n: 4,
-                d: 4
-              }
-            })
-          ]
+          key: 0,
+          time: {
+            n: 4,
+            d: 4
+          },
+          measures: [new data.Measure()]
         };
         this.staves = [
           {
-            measures: [
-              new data.StaffMeasure({
-                clef: 'treble'
-              })
-            ]
+            clef: 'treble',
+            measures: [new data.StaffMeasure()]
           }
         ];
       }
@@ -54,13 +48,15 @@
           totalDuration = 1 / cursor.noteType + _(this.currentMeasure(cursor).notes).reduce(iterator, 0);
           if (!(totalDuration > timeSignature.n / timeSignature.d)) {
             this.currentMeasure(cursor).addNote(cursor.position, {
-              pitch: (6 - cursor.height) + (offset || 0),
+              pitch: offset != null ? (6 - cursor.height) + offset : null,
               duration: {
                 n: 1,
                 d: cursor.noteType
               }
             });
-            cursor.height = cursor.height - offset;
+            if (offset != null) {
+              cursor.height = cursor.height - offset;
+            }
             if (totalDuration === timeSignature.n / timeSignature.d) {
               if (cursor.measure === this.meta.measures.length - 1) {
                 this.addMeasure();
@@ -91,31 +87,56 @@
         }
       };
 
-      Score.prototype.addEvent = function(cursor, event) {
+      Score.prototype.addEvent = function(cursor, event, global) {
         if (cursor.staff < 0) {
-          return this.meta.measures[cursor.measure].addEvent(event);
+          if (global) {
+            return _(this.meta).extend(event);
+          } else {
+            return this.meta.measures[cursor.measure].addEvent(event);
+          }
         } else {
-          return this.currentMeasure(cursor).addEvent(event);
+          if (global) {
+            return _(this.staves[cursor.staff]).extend(event);
+          } else {
+            return this.currentMeasure(cursor).addEvent(event);
+          }
         }
       };
 
-      Score.prototype.removeEvent = function(cursor, eventKey) {
+      Score.prototype.removeEvent = function(cursor, eventKey, global) {
         if (cursor.staff < 0) {
-          return this.meta.measures[cursor.measure].removeEvent(eventKey);
+          if (global) {
+            return delete this.meta[eventKey];
+          } else {
+            return this.meta.measures[cursor.measure].removeEvent(eventKey);
+          }
         } else {
-          return this.currentMeasure(cursor).removeEvent(eventKey);
+          if (global) {
+            return delete this.staves[cursor.staff][eventKey];
+          } else {
+            return this.currentMeasure(cursor).removeEvent(eventKey);
+          }
         }
       };
 
-      Score.prototype.toggleEvent = function(cursor, event) {
-        var eventKey, key;
+      Score.prototype.toggleEvent = function(cursor, event, global) {
+        var eventKey, key, track;
         for (key in event) {
           eventKey = key;
         }
-        if (this.currentMeasure(cursor).events[eventKey] != null) {
-          return this.removeEvent(cursor, eventKey);
+        if (global) {
+          track = cursor.staff < 0 ? this.meta : this.staves[cursor.staff];
+          if (track[eventKey] != null) {
+            return this.removeEvent(cursor, eventKey, global);
+          } else {
+            return this.addEvent(cursor, event, global);
+          }
         } else {
-          return this.addEvent(cursor, event);
+          if (this.currentMeasure(cursor).events[eventKey] != null) {
+            return this.removeEvent(cursor, eventKey, global);
+          } else {
+            return this.addEvent(cursor, event, global);
+          }
         }
       };
 
@@ -249,10 +270,14 @@
         var cursorHeight, _ref, _ref1;
         this.noteType = noteType;
         if (((_ref = this.score.currentMeasure(this).notes) != null ? (_ref1 = _ref[this.position]) != null ? _ref1.duration : void 0 : void 0) != null) {
-          cursorHeight = this.height;
-          this.height = -(this.score.currentMeasure(this).notes[this.position].pitch - 6);
-          this.score.addNote(this);
-          return this.height = cursorHeight;
+          if (this.score.currentMeasure(this).notes[this.position].pitch === null) {
+            return this.score.addNote(this);
+          } else {
+            cursorHeight = this.height;
+            this.height = -(this.score.currentMeasure(this).notes[this.position].pitch - 6);
+            this.score.addNote(this, 0);
+            return this.height = cursorHeight;
+          }
         }
       };
 

@@ -152,7 +152,7 @@
       },
       link: function(scope, $element, $attrs) {
         return $element.attr({
-          x: scope.direction === 'up' ? 1.2512 : 0,
+          x: scope.direction === 'up' ? 1.1862 : 0,
           y: scope.direction === 'up' ? -3.5 : 0.1878,
           width: 0.13,
           height: 3.3122,
@@ -186,7 +186,7 @@
           };
         }
       ],
-      template: '<path ng-path name="{{noteHeadName(type)}}"/> <rect ng-stem direction="{{stem}}" ng-hide="type == 1"/>',
+      template: '<path ng-path name="{{noteHeadName(type)}}"/> <rect ng-stem direction="{{stem}}" ng-hide="type == 1"/> <path ng-path ng-show="type == 8 || type == 16" name="{{type == 8 ? \'eighth\' : \'sixteenth\'}}NoteTail{{stem === \'up\' ? \'Down\' : \'Up\'}}" y="{{stem === \'up\' ? -3.46 : 3.46}}" x="{{stem === \'up\' ? 1.3162 : 0.13}}"/>',
       link: function(scope, $element, $attrs) {
         return $element.attr({
           transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ")"
@@ -213,22 +213,57 @@
     };
   });
 
-  musicSVG.directive('ngBarline', function() {
+  musicSVG.directive('ngRest', function() {
     return {
       restrict: 'A',
       scope: {
         type: '@',
-        position: '@',
-        size: '@'
+        x: '@',
+        y: '@'
+      },
+      template: '<path ng-path name="{{{\'1\': \'whole\', \'2\': \'half\', \'4\': \'quarter\', \'8\': \'eighth\', \'16\': \'sixteenth\'}[type]}}Rest" y="{{type == 1 ? -1 : 0}}"/>',
+      link: function(scope, $element, $attrs) {
+        return $element.attr({
+          transform: "translate(" + (scope.x || 0) + ", " + (scope.y || 0) + ")"
+        });
+      }
+    };
+  });
+
+  musicSVG.directive('ngBarLine', function() {
+    return {
+      restrict: 'A',
+      scope: {
+        type: '@',
+        msvgX: '=',
+        msvgHeight: '=',
+        msvgWidth: '='
       },
       link: function(scope, $element, $attrs) {
         return $element.attr({
-          transform: "translate(" + (scope.position || 0) + ", 0)",
-          x: -0.19,
-          y: -(scope.size || 2),
-          width: 0.19,
-          height: 2 * (scope.size || 2),
+          transform: "translate(" + (scope.msvgX || 0) + ", 0)",
+          x: 0,
+          y: -(scope.msvgHeight || 2),
+          width: scope.msvgWidth,
+          height: 2 * (scope.msvgHeight || 2),
           fill: 'currentColor'
+        });
+      }
+    };
+  });
+
+  musicSVG.directive('ngBarLineGroup', function() {
+    return {
+      restrict: 'A',
+      scope: {
+        type: '@',
+        x: '=',
+        height: '='
+      },
+      template: '<g ng-switch="type"> <g ng-switch-when="|"> <rect ng-bar-line msvg-x="-0.19" msvg-height="height" msvg-width="0.19"/> </g> <g ng-switch-when="|."> <rect ng-bar-line msvg-x="-1.09" msvg-height="height" msvg-width="0.19"/> <rect ng-bar-line msvg-x="-0.6" msvg-height="height" msvg-width="0.6"/> </g> </g>',
+      link: function(scope, $element, $attrs) {
+        return $element.attr({
+          transform: "translate(" + (scope.x || 0) + ", 0)"
         });
       }
     };

@@ -9,6 +9,9 @@
       this.addNote = function() {
         return score.addNote(cursor, 0);
       };
+      this.addRest = function() {
+        return score.addNote(cursor);
+      };
       this.addNote2Above = function() {
         return score.addNote(cursor, 1);
       };
@@ -88,14 +91,14 @@
         if (!(cursor.staff < 0)) {
           return score.toggleEvent(cursor, {
             clef: 'treble'
-          });
+          }, cursor.measure === 0);
         }
       };
       this.addKeySignature = function() {
         if (cursor.staff < 0) {
           return score.toggleEvent(cursor, {
             key: prompt('Key signature')
-          });
+          }, cursor.measure === 0);
         }
       };
       this.addTimeSignature = function() {
@@ -105,6 +108,13 @@
               n: prompt('Time signature numerator'),
               d: prompt('Time signature denominator')
             }
+          }, cursor.measure === 0);
+        }
+      };
+      this.addFinalBarLine = function() {
+        if (cursor.staff < 0) {
+          return score.toggleEvent(cursor, {
+            barLine: '|.'
           });
         }
       };
@@ -135,8 +145,15 @@
       this.setQuarterNote = function() {
         return cursor.setNoteType(4);
       };
+      this.setEighthNote = function() {
+        return cursor.setNoteType(8);
+      };
+      this.setSixteenthNote = function() {
+        return cursor.setNoteType(16);
+      };
       this.buttonDisplays = {
-        addNote: 'add',
+        addNote: 'note',
+        addRest: 'rest',
         addNote2Above: '^2nd',
         addNote3Above: '^3rd',
         addNote4Above: '^4th',
@@ -155,6 +172,7 @@
         addTrebleClef: 'clef',
         addKeySignature: 'key',
         addTimeSignature: 'time',
+        addFinalBarLine: 'final',
         up: upArrow,
         down: downArrow,
         left: leftArrow,
@@ -163,20 +181,24 @@
         layerDown: downArrow + downArrow,
         setWholeNote: '1/1',
         setHalfNote: '1/2',
-        setQuarterNote: '1/4'
+        setQuarterNote: '1/4',
+        setEighthNote: '1/8',
+        setSixteenthNote: '1/16'
       };
       this.bindings = {
         a: 'down8',
         o: 'down5',
         e: 'down3',
         u: 'down',
-        d: 'addNote',
-        i: 'left',
+        d: 'addRest',
+        i: 'addNote',
         h: 'up',
         t: 'up3',
         n: 'up5',
         s: 'up8',
-        "delete": 'removeNote',
+        '-': 'removeNote',
+        "delete": 'left',
+        ';': 'addFinalBarLine',
         ',': 'addTrebleClef',
         '.': 'addKeySignature',
         p: 'addTimeSignature',
@@ -189,7 +211,9 @@
         k: 'layerUp',
         g: 'setWholeNote',
         c: 'setHalfNote',
-        r: 'setQuarterNote'
+        r: 'setQuarterNote',
+        l: 'setEighthNote',
+        '/': 'setSixteenthNote'
       };
       keyMap = {
         "delete": 8,
@@ -197,10 +221,13 @@
         down: 40,
         left: 37,
         right: 39,
+        ';': 186,
         ',': 188,
         '.': 190,
         ';': 186,
         "'": 222,
+        '/': 191,
+        '-': 189,
         space: 32
       };
       _ref = 'abcdefghijklmnopqrstuvwxyz';
@@ -209,8 +236,8 @@
         keyMap[letter] = 65 + i;
       }
       this.keyboardLayouts = {
-        dvorak: [";,.pyfgcrl".split(''), "aoeuidhtns".split(''), "'qjkxbmwvz".split('')],
-        qwerty: ["qwertyuiop".split(''), "asdfghjkl;".split(''), "zxcvbnm,./".split('')]
+        dvorak: [";,.pyfgcrl/".split(''), "aoeuidhtns-".split(''), "'qjkxbmwvz".split('')],
+        qwerty: ["qwertyuiop[".split(''), "asdfghjkl;'".split(''), "zxcvbnm,./".split('')]
       };
       this.qwertyToDvorak = function(key) {
         var char, charIndex, dvorakKey, row, rowNum, _j, _k, _len1, _len2, _ref1;
@@ -269,4 +296,3 @@
   rightArrow = '\u2192';
 
 }).call(this);
-
