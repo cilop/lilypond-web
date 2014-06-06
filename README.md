@@ -16,3 +16,8 @@ Browse around the webpage http://pondweb.azurewebsites.net for more information.
 Head over http://pondweb.azurewebsites.net/download to download the desktop app - available in all modern operating systems.
 We have a web version at http://pondweb.azurewebsites.net/web  !
 
+Authors
+============
+Michael Reinhard (https://github.com/mcreinhard/)
+Roberto Alvarez (https://github.com/cilop/)
+
