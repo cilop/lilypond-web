@@ -10,7 +10,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
     .when('/about', {
       templateUrl: 'partials/about'
     })
-    .when('/demo', {
+    .when('/web', {
       templateUrl: 'partials/demo'
     })
     .when('/download', {
