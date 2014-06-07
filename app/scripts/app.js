@@ -26,6 +26,7 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
 .controller('MainCtrl', function($scope, data, Actions, generateLy, $http){
 
+  var width = 1000;
   $scope.lycode = '\include "english.ly" music = { \clef treble \key c \major \\time 4/4 } \score { \\new Staff = "music" \music }';
 
   $scope.score = new data.Score();
@@ -42,6 +43,9 @@ angular.module('lilypondWebApp',['ngRoute', 'leftBar', 'documentView', 'data', '
 
   $scope.keydown = function(event) {
     var _base, _name;
+    event.preventDefault();
+    width += 200;
+    $('.document-view').css({width: width});
     return typeof (_base = $scope.actions.keybindings[$scope.selectedKeyboard])[_name = event.which] === "function" ? _base[_name]() : void 0;
   };
 
